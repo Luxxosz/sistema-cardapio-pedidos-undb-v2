@@ -1,0 +1,10 @@
+package com.tarrafa.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public record ItemRequest(
+        @NotNull(message = "Informe o produto") Long produtoId,
+        @NotNull(message = "Informe a quantidade") @Min(value = 1, message = "A quantidade precisa ser pelo menos 1") Integer quantidade
+) {
+}
