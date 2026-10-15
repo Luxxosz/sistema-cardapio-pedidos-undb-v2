@@ -1,0 +1,9 @@
+package com.tarrafa.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public record QuantidadeRequest(
+        @NotNull(message = "Informe a quantidade") @Min(value = 1, message = "A quantidade precisa ser pelo menos 1") Integer quantidade
+) {
+}
