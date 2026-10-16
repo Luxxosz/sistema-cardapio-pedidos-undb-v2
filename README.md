@@ -183,7 +183,7 @@ Baseada no material do restaurante:
 | Nome | GitHub |
 | ---- | ------ |
 | _Luiz Eduardo_ | [@Luxxosz](https://github.com/Luxxosz) |
-| _Nícolas Ferreira_ | [@Nicolas-Dev256](https://github.com/Nicolas-Dev256). |
+| _Nícolas Ferreira_ | [@Nicolas-Dev256](https://github.com/Nicolas-Dev256) |
 
 ---
 
