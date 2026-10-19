@@ -1,35 +1,40 @@
 ## Motivo
-Essa pasta contém as exceções e o tratamento centralizado de erros da aplicação, ou seja, define como o sistema reage quando ocorre um problema durante uma operação. Ela permite identificar situações como recursos não encontrados, violações de regras de negócio e erros de validação, devolvendo respostas HTTP padronizadas para o frontend.
+Essa pasta contém os serviços da aplicação, ou seja, as classes responsáveis por executar os casos de uso e aplicar as regras de negócio do Sistema de Cardápio e Pedidos. É nessa camada que ficam as operações relacionadas ao cadastro de usuários, gerenciamento de produtos e categorias, processamento de pedidos, cálculo de valores e fechamento diário.
 
-Dessa forma, os controllers e serviços não precisam repetir o mesmo código de tratamento de erros em diferentes partes da aplicação.
+Os serviços fazem a ligação entre os controllers, as entidades e os repositórios, coordenando as consultas e alterações necessárias no banco de dados. Também podem preparar os dados de resposta e enviar notificações em tempo real quando uma operação exige isso.
 
 ## Arquivos
 
-`RecursoNaoEncontradoException` - representa uma exceção utilizada quando um recurso solicitado não é encontrado, como um produto, uma categoria ou um pedido inexistente.
+`AuthService` - realiza o cadastro e o login dos usuários, consulta os registros necessários, verifica as credenciais, utiliza o codificador de senhas e gera o token de autenticação.
 
-`RegraNegocioException` - representa uma exceção utilizada quando uma operação não pode ser realizada por violar alguma regra de negócio do sistema.
+`CategoriaService` - gerencia as categorias do cardápio, permitindo listar, cadastrar, atualizar e excluir categorias. Também verifica as condições de negócio e as dependências com produtos antes de realizar determinadas operações.
 
-`GlobalExceptionHandler` - é responsável por capturar as exceções tratadas pela aplicação e convertê-las em respostas HTTP com mensagens de erro em formato JSON, utilizando o campo `mensagem`.
+`ProdutoService` - gerencia os produtos do cardápio, permitindo listar os produtos ativos para exibição pública e consultar todos os produtos na administração. Também realiza o cadastro, a atualização, a ativação, a desativação, a consulta e a exclusão de produtos.
 
-## Tratamento de erros
-O `GlobalExceptionHandler` centraliza o tratamento de diferentes tipos de exceção e devolve os códigos HTTP correspondentes:
+`PedidoService` - concentra as operações relacionadas aos pedidos, incluindo criação, consulta dos pedidos do cliente, alteração de itens e observações, cálculo de valores, confirmação e cancelamento. Também permite operações administrativas de consulta e alteração de status, além de converter entidades de pedidos em objetos `PedidoResponse`.
 
-- `RecursoNaoEncontradoException` - retorna `404 Not Found`, indicando que o recurso solicitado não foi encontrado.
-- `RegraNegocioException` - retorna `400 Bad Request`, indicando que a operação não pode ser realizada conforme as regras do sistema.
-- `MethodArgumentNotValidException` - retorna `400 Bad Request` quando os dados recebidos não passam pelas validações dos DTOs, utilizando a primeira mensagem de validação.
-- `ResponseStatusException` - preserva o status HTTP definido pela exceção e utiliza sua razão como mensagem de erro.
+`FechamentoService` - reúne as operações relacionadas ao painel administrativo e ao fechamento diário, preparando os indicadores por data, calculando informações sobre pedidos e faturamento, encerrando ou reabrindo o dia e verificando se o dia está aberto para operações que dependem dessa condição.
 
-As respostas utilizam o campo `mensagem` para informar o motivo do erro ao frontend. Por exemplo:
-
-```json
-{
-  "mensagem": "Produto não encontrado"
-}
-```
-
-O texto apresentado depende da exceção lançada e da mensagem definida pela aplicação.
+`NotificacaoService` - envia atualizações de pedidos por meio do mecanismo de mensagens do Spring, permitindo que os clientes e as interfaces administrativas recebam notificações em tempo real.
 
 ## Como funciona
-Quando ocorre uma situação que impede a execução de uma operação, um serviço pode lançar uma exceção específica. O `GlobalExceptionHandler`, utilizando a anotação `@RestControllerAdvice`, identifica as exceções para as quais possui um tratamento definido e transforma essas situações em respostas HTTP padronizadas.
+Quando o frontend envia uma solicitação, o controller recebe os dados e encaminha a operação para o serviço correspondente. O serviço verifica as regras de negócio, consulta os repositórios e, quando necessário, cria ou modifica entidades e persiste as alterações no banco de dados.
 
-Assim, o frontend consegue receber informações sobre o erro e apresentar uma mensagem adequada, enquanto o backend mantém o tratamento centralizado em um único lugar.
+Depois de concluir a operação, o serviço prepara os dados que serão devolvidos ao controller, geralmente por meio de um DTO de resposta. Em operações que exigem atualização em tempo real, também pode acionar o `NotificacaoService` para enviar mensagens aos clientes conectados.
+
+## Regras de negócio
+Cada serviço concentra as regras relacionadas à sua responsabilidade:
+
+- `AuthService` - controla as operações de cadastro e autenticação, incluindo a verificação das credenciais e a geração do token.
+- `CategoriaService` - verifica as condições necessárias para alterar ou excluir categorias, considerando suas dependências com os produtos.
+- `ProdutoService` - diferencia os produtos ativos exibidos publicamente daqueles disponibilizados para consulta administrativa.
+- `PedidoService` - calcula os valores dos pedidos, verifica as condições de alteração, respeita o cliente responsável e considera as transições de status permitidas por `StatusPedido`.
+- `FechamentoService` - centraliza os indicadores do painel administrativo e as regras relacionadas ao encerramento e à reabertura do dia.
+- `NotificacaoService` - permite comunicar atualizações dos pedidos por meio de mensagens em tempo real.
+
+No cálculo dos pedidos, o `PedidoService` utiliza o preço unitário registrado em cada `ItemPedido`, preservando o valor aplicado no momento da compra mesmo que o preço do produto seja alterado posteriormente.
+
+## Comunicação com outras camadas
+Os serviços utilizam os repositórios para consultar e persistir dados, trabalham com as entidades para representar os registros do sistema e utilizam DTOs para organizar as informações recebidas e devolvidas pela API.
+
+Quando ocorre uma situação que impede uma operação, os serviços também podem lançar exceções específicas da pasta `exception/`, permitindo que o `GlobalExceptionHandler` transforme esses erros em respostas HTTP padronizadas.
