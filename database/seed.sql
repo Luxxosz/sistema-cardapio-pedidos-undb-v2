@@ -1,0 +1,173 @@
+-- Sistema de Cardapio e Pedidos - Tarrafa Bistro do Mar
+-- Cardapio oficial: 17 categorias e 136 produtos (exportado do banco de producao no Neon).
+--
+-- Como usar: rode o schema.sql primeiro e depois este arquivo, em um banco VAZIO.
+-- Os ids sao fixos. Se as tabelas ja tiverem dados, o script da erro de chave
+-- duplicada e, por estar dentro de uma transacao, nao altera nada.
+-- Este script nao cria usuarios: o administrador e criado pelo backend ao subir.
+-- Todos os produtos ficam sem imagem_url (as fotos sao por categoria, no frontend).
+
+BEGIN;
+
+-- Categorias
+INSERT INTO categoria (id, nome) VALUES (1, 'Petiscos para a mesa');
+INSERT INTO categoria (id, nome) VALUES (2, 'Entradas');
+INSERT INTO categoria (id, nome) VALUES (3, 'Do mar e da brasa');
+INSERT INTO categoria (id, nome) VALUES (4, 'Raízes da ilha');
+INSERT INTO categoria (id, nome) VALUES (5, 'Guarnições');
+INSERT INTO categoria (id, nome) VALUES (6, 'Assinaturas do chef');
+INSERT INTO categoria (id, nome) VALUES (7, 'Sobremesas');
+INSERT INTO categoria (id, nome) VALUES (8, 'Cafés e chás');
+INSERT INTO categoria (id, nome) VALUES (9, 'Pescador júnior');
+INSERT INTO categoria (id, nome) VALUES (10, 'Sem álcool');
+INSERT INTO categoria (id, nome) VALUES (11, 'Cervejas');
+INSERT INTO categoria (id, nome) VALUES (12, 'Coquetéis da casa');
+INSERT INTO categoria (id, nome) VALUES (13, 'Destilados');
+INSERT INTO categoria (id, nome) VALUES (14, 'Espumantes e champanhes');
+INSERT INTO categoria (id, nome) VALUES (15, 'Brancos e rosé');
+INSERT INTO categoria (id, nome) VALUES (16, 'Tintos');
+INSERT INTO categoria (id, nome) VALUES (17, 'Sobremesa e fortificados');
+
+-- Produtos
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (1, 'Dadinhos de tapioca e queijo coalho', 'Geleia de pimenta rosa', 44.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (2, 'Casquinha de caranguejo', 'Caranguejo-uçá e farofa de farinha d''água', 56.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (3, 'Bolinho de camarão seco', 'Creme de cuxá', 52.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (4, 'Anéis de lula crocantes', 'Maionese cítrica e coentro', 62.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (5, 'Isca de pescada amarela', 'Empanada leve e tártara de cajá', 68.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (6, 'Camarão ao alho e óleo', 'Seis unidades e torrada de pão fermentado', 78.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (7, 'Mini torta de camarão', 'Massa amanteigada e camarão da ilha', 58.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (8, 'Tábua do pescador (2 a 3 pessoas)', 'Peixe curado, camarões, polvo, ostras e molhos da casa', 210.00, true, 1, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (9, 'Ostras frescas', 'Seis unidades, mignonette de vinagre de champanhe e cajá', 96.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (10, 'Tartare de atum', 'Abacate, gergelim tostado e crocante de mandioca', 82.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (11, 'Carpaccio de polvo', 'Azeite de ervas, alcaparras e limão-siciliano', 78.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (12, 'Ceviche da maré', 'Peixe branco, leite de tigre de cajá e milho tostado', 74.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (13, 'Croquetes de siri', 'Maionese de limão-cravo', 58.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (14, 'Caldo da rede', 'Sopa de pescado, rouille e croûtons', 62.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (15, 'Burrata', 'Tomates confit e manjericão', 68.00, true, 2, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (16, 'Pescado do dia', 'Camurim, pescada amarela ou serra; manteiga noisette, purê de baroa', 148.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (17, 'Polvo grelhado', 'Batata ao murro, páprica defumada e vinagrete de tomate', 168.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (18, 'Risoto de camarão', 'Limão-siciliano, ervas e bisque reduzida', 138.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (19, 'Spaghetti alle vongole', 'Vôngole, bottarga e salsa', 124.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (20, 'Lula recheada', 'Farofa de camarão seco e creme de milho', 132.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (21, 'Medalhão de filé mignon', 'Purê de baroa e molho de vinho tinto', 148.00, true, 3, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (22, 'Peixada maranhense, versão bistrô', 'Pescada amarela, leite de coco, pirão e arroz de cuxá', 158.00, true, 4, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (23, 'Arroz de cuxá com camarão', 'Vinagreira, gergelim e camarão grelhado', 126.00, true, 4, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (24, 'Torta de camarão da casa', 'Receita maranhense servida em porção de prato', 118.00, true, 4, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (25, 'Caranguejo ao leite de coco', 'Porção individual, farinha d''água e pimenta de cheiro', 138.00, true, 4, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (26, 'Batata ao murro', NULL, 22.00, true, 5, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (27, 'Arroz de cuxá', NULL, 24.00, true, 5, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (28, 'Purê de baroa', NULL, 22.00, true, 5, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (29, 'Legumes assados', NULL, 24.00, true, 5, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (30, 'Farofa de camarão seco', NULL, 26.00, true, 5, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (31, 'Tarrafa, para dois', 'Caldeirada em panela de ferro: lagosta, camarão, mexilhão e peixe, com pirão e arroz de coco', 390.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (32, 'Camurim em crosta de sal, para dois', 'Finalizado à mesa, com manteiga de ervas e legumes assados', 360.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (33, 'Lagosta na brasa', 'Manteiga de ervas e farofa de camarão seco', 320.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (34, 'Moqueca de camarão-gigante', 'Leite de coco, dendê e pirão cremoso', 298.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (35, 'Degustação do Pescador', 'Cinco etapas conforme a pesca do dia: ostra e cajá, tartare de atum, polvo e batata ao murro, pescado do dia com cuxá e doce de espécie, versão bistrô', 380.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (36, 'Harmonização de vinhos (degustação)', 'Acompanha a Degustação do Pescador', 180.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (37, 'Harmonização sem álcool (degustação)', 'Sucos de frutas da ilha, infusões e kombuchas; acompanha a Degustação do Pescador', 140.00, true, 6, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (38, 'Tarte de limão-siciliano', 'Merengue maçaricado', 46.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (39, 'Pudim de coco queimado', 'Calda de cachaça envelhecida', 42.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (40, 'Chocolate meio-amargo', 'Flor de sal e azeite', 48.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (41, 'Doce de espécie, versão bistrô', 'Coco, cravo e canela, sorvete de tapioca', 44.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (42, 'Bacuri em duas texturas', 'Mousse e sorbet', 48.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (43, 'Petit gâteau de cupuaçu', 'Calda de maracujá', 52.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (44, 'Espresso', NULL, 12.00, true, 8, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (45, 'Café coado', NULL, 14.00, true, 8, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (46, 'Cappuccino', NULL, 18.00, true, 8, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (47, 'Chás', 'Erva-doce, hortelã ou frutas vermelhas; informe qual na observação', 16.00, true, 8, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (48, 'Filezinho de peixe grelhado', 'Arroz e purê. Para crianças até 10 anos, com brinde da casa', 59.00, true, 9, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (49, 'Nuggets de peixe', 'Batata rústica. Para crianças até 10 anos, com brinde da casa', 54.00, true, 9, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (50, 'Mini macarrão ao sugo', 'Queijo ralado. Para crianças até 10 anos, com brinde da casa', 49.00, true, 9, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (51, 'Sorvete com calda', 'Para crianças até 10 anos, com brinde da casa', 24.00, true, 9, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (52, 'Água mineral sem gás, 500 ml', NULL, 12.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (53, 'Água mineral com gás, 500 ml', NULL, 14.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (54, 'San Pellegrino, 750 ml', NULL, 32.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (55, 'Acqua Panna, 750 ml', NULL, 32.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (56, 'Água de coco gelada', NULL, 16.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (57, 'Guaraná Jesus', 'O rosa do Maranhão', 12.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (58, 'Coca-Cola ou Coca-Cola Zero', 'Informe a versão na observação do pedido', 12.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (59, 'Guaraná Antarctica', NULL, 12.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (60, 'Sprite', NULL, 12.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (61, 'Água tônica', NULL, 14.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (62, 'Soda italiana', 'Limão, maracujá ou framboesa; informe o sabor na observação', 24.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (63, 'Suco natural (copo)', 'Cajá (taperebá), bacuri, cupuaçu, maracujá, acerola com hortelã, caju, juçara ou limonada suíça; informe o sabor na observação. Bacuri e juçara conforme a safra', 16.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (64, 'Suco natural (jarra 500 ml)', 'Cajá (taperebá), bacuri, cupuaçu, maracujá, acerola com hortelã, caju, juçara ou limonada suíça; informe o sabor na observação. Bacuri e juçara conforme a safra', 38.00, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (65, 'Chope pilsen, 300 ml', NULL, 14.00, true, 11, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (66, 'Stella Artois, long neck', NULL, 16.00, true, 11, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (67, 'Heineken, long neck', NULL, 16.00, true, 11, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (68, 'Heineken 0.0', 'Sem álcool', 16.00, true, 11, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (69, 'Artesanal local, 500 ml', NULL, 34.00, true, 11, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (70, 'Maré Baixa', 'Gin, cajá, água tônica e alecrim', 38.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (71, 'Salmoura', 'Martíni seco de gin com azeitona e toque salino', 40.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (72, 'Tiquira Sour', 'Tiquira, limão, calda de cravo e clara', 42.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (73, 'Ilha do Amor', 'Espumante, xarope de vinagreira (hibisco) e framboesa', 46.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (74, 'Caipirinha de bacuri', 'Cachaça envelhecida, bacuri e açúcar mascavo', 36.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (75, 'Negroni da Maré', 'Gin, Campari, vermute e laranja defumada', 44.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (76, 'Spritz Tarrafa', 'Aperol, prosecco, soda e laranja', 42.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (77, 'Maré Zero (sem álcool)', 'Cajá, gengibre, limão e hortelã', 28.00, true, 12, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (78, 'Tanqueray, dose 50 ml', 'Gin', 34.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (79, 'Bombay Sapphire, dose 50 ml', 'Gin', 36.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (80, 'Hendrick''s, dose 50 ml', 'Gin', 46.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (81, 'Johnnie Walker Black Label, dose 50 ml', 'Whisky', 38.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (82, 'Buchanan''s 12 anos, dose 50 ml', 'Whisky', 40.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (83, 'The Macallan 12 anos, dose 50 ml', 'Whisky', 78.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (84, 'Hennessy VS, dose 50 ml', 'Conhaque', 52.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (85, 'Cachaça envelhecida em carvalho, dose 50 ml', 'Cachaça', 24.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (86, 'Tiquira artesanal do Maranhão, dose 50 ml', 'Tiquira', 28.00, true, 13, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (87, 'Cave Geisse Brut (taça)', 'Serra Gaúcha, Brasil. Taça de 125 ml', 42.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (88, 'Cave Geisse Brut (garrafa)', 'Serra Gaúcha, Brasil. Garrafa de 750 ml', 250.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (89, 'Mionetto Prosecco Brut (taça)', 'Vêneto, Itália. Taça de 125 ml', 46.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (90, 'Mionetto Prosecco Brut (garrafa)', 'Vêneto, Itália. Garrafa de 750 ml', 280.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (91, 'Moët & Chandon Impérial Brut (taça)', 'Champagne, França. Taça de 125 ml', 150.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (92, 'Moët & Chandon Impérial Brut (garrafa)', 'Champagne, França. Garrafa de 750 ml', 990.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (93, 'Taittinger Brut Réserve (taça)', 'Champagne, França. Taça de 125 ml', 158.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (94, 'Taittinger Brut Réserve (garrafa)', 'Champagne, França. Garrafa de 750 ml', 1090.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (95, 'Veuve Clicquot Yellow Label (taça)', 'Champagne, França. Taça de 125 ml', 168.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (96, 'Veuve Clicquot Yellow Label (garrafa)', 'Champagne, França. Garrafa de 750 ml', 1190.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (97, 'Ruinart Blanc de Blancs (garrafa)', 'Champagne, França. Garrafa de 750 ml', 1980.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (98, 'Dom Pérignon Vintage (garrafa)', 'Champagne, França. Garrafa de 750 ml', 4900.00, true, 14, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (99, 'Soalheiro Alvarinho (taça)', 'Vinho Verde, Portugal. Taça de 125 ml', 54.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (100, 'Soalheiro Alvarinho (garrafa)', 'Vinho Verde, Portugal. Garrafa de 750 ml', 330.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (101, 'Martín Códax Albariño (taça)', 'Rías Baixas, Espanha. Taça de 125 ml', 56.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (102, 'Martín Códax Albariño (garrafa)', 'Rías Baixas, Espanha. Garrafa de 750 ml', 340.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (103, 'Argiolas Costamolino Vermentino (taça)', 'Sardenha, Itália. Taça de 125 ml', 58.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (104, 'Argiolas Costamolino Vermentino (garrafa)', 'Sardenha, Itália. Garrafa de 750 ml', 360.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (105, 'Santa Margherita Pinot Grigio (taça)', 'Alto Ádige, Itália. Taça de 125 ml', 64.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (106, 'Santa Margherita Pinot Grigio (garrafa)', 'Alto Ádige, Itália. Garrafa de 750 ml', 440.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (107, 'Cloudy Bay Sauvignon Blanc (taça)', 'Marlborough, Nova Zelândia. Taça de 125 ml', 78.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (108, 'Cloudy Bay Sauvignon Blanc (garrafa)', 'Marlborough, Nova Zelândia. Garrafa de 750 ml', 520.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (109, 'La Chablisienne Chablis (taça)', 'Borgonha, França. Taça de 125 ml', 82.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (110, 'La Chablisienne Chablis (garrafa)', 'Borgonha, França. Garrafa de 750 ml', 560.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (111, 'Henri Bourgeois Sancerre Les Baronnes (taça)', 'Loire, França. Taça de 125 ml', 96.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (112, 'Henri Bourgeois Sancerre Les Baronnes (garrafa)', 'Loire, França. Garrafa de 750 ml', 690.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (113, 'Whispering Angel Rosé (taça)', 'Provence, França. Taça de 125 ml', 88.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (114, 'Whispering Angel Rosé (garrafa)', 'Provence, França. Garrafa de 750 ml', 580.00, true, 15, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (115, 'Catena Malbec (taça)', 'Mendoza, Argentina. Taça de 125 ml', 58.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (116, 'Catena Malbec (garrafa)', 'Mendoza, Argentina. Garrafa de 750 ml', 380.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (117, 'Esporão Reserva (taça)', 'Alentejo, Portugal. Taça de 125 ml', 62.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (118, 'Esporão Reserva (garrafa)', 'Alentejo, Portugal. Garrafa de 750 ml', 420.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (119, 'Ruffino Riserva Ducale Chianti Classico (taça)', 'Toscana, Itália. Taça de 125 ml', 72.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (120, 'Ruffino Riserva Ducale Chianti Classico (garrafa)', 'Toscana, Itália. Garrafa de 750 ml', 480.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (121, 'Louis Jadot Bourgogne Pinot Noir (taça)', 'Borgonha, França. Taça de 125 ml', 78.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (122, 'Louis Jadot Bourgogne Pinot Noir (garrafa)', 'Borgonha, França. Garrafa de 750 ml', 560.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (123, 'Quinta do Crasto Reserva Old Vines (taça)', 'Douro, Portugal. Taça de 125 ml', 98.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (124, 'Quinta do Crasto Reserva Old Vines (garrafa)', 'Douro, Portugal. Garrafa de 750 ml', 650.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (125, 'Castello Banfi Brunello di Montalcino (garrafa)', 'Toscana, Itália. Garrafa de 750 ml', 1390.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (126, 'Concha y Toro Don Melchor (garrafa)', 'Valle del Maipo, Chile. Garrafa de 750 ml', 1790.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (127, 'Antinori Tignanello (garrafa)', 'Toscana, Itália. Em taça apenas via Coravin, sob consulta. Garrafa de 750 ml', 2900.00, true, 16, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (128, 'Taylor''s Late Bottled Vintage (taça)', 'Douro, Portugal. Taça de 125 ml', 52.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (129, 'Taylor''s Late Bottled Vintage (garrafa)', 'Douro, Portugal. Garrafa de 750 ml', 360.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (130, 'Taylor''s Tawny 10 anos (taça)', 'Douro, Portugal. Taça de 125 ml', 58.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (131, 'Taylor''s Tawny 10 anos (garrafa)', 'Douro, Portugal. Garrafa de 750 ml', 420.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (132, 'Moscatel de Setúbal J. M. da Fonseca (taça)', 'Setúbal, Portugal. Taça de 125 ml', 46.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (133, 'Moscatel de Setúbal J. M. da Fonseca (garrafa)', 'Setúbal, Portugal. Garrafa de 750 ml', 320.00, true, 17, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (134, 'Não sei', 'Isso ai', 700.00, true, 7, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (135, 'Agua barata', 'pega liso', 3.50, true, 10, NULL);
+INSERT INTO produto (id, nome, descricao, preco, ativo, categoria_id, imagem_url) VALUES (136, 'Dadinho com geleia de pimenta', 'Geleia', 40.00, true, 1, NULL);
+
+-- Ajusta as sequencias para os proximos ids continuarem depois dos existentes
+SELECT setval(pg_get_serial_sequence('categoria', 'id'), (SELECT MAX(id) FROM categoria));
+SELECT setval(pg_get_serial_sequence('produto', 'id'), (SELECT MAX(id) FROM produto));
+
+COMMIT;
