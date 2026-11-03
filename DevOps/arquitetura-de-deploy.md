@@ -8,8 +8,8 @@ Este documento mostra onde cada parte do Tarrafa roda, como elas conversam e qua
 
 | Serviço | Plataforma | O que roda | Como é publicado |
 |---|---|---|---|
-| Frontend | Vercel (`tarrafa-bistro`) | React + Vite, entregue como arquivos estáticos | Deploy automático pela branch `atualiza-projeto` |
-| Backend | Render (plano Free) | API Spring Boot dentro de um contêiner Docker | Deploy automático pela branch `atualiza-projeto` |
+| Frontend | Vercel (`tarrafa-bistro`) | React + Vite, entregue como arquivos estáticos | Deploy automático pela branch `main` |
+| Backend | Render (plano Free) | API Spring Boot dentro de um contêiner Docker | Deploy automático pela branch `main` |
 | Banco | Neon (plano Free, São Paulo) | PostgreSQL 18, branch `production` | Serviço gerenciado, não tem deploy |
 
 - Frontend: https://tarrafa-bistro.vercel.app
