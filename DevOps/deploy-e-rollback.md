@@ -19,7 +19,7 @@ Checklist rápido:
 O deploy é automático (ver [Pipeline de CI/CD](./pipeline-ci-cd.md)). Basta enviar o código para a branch de deploy:
 
 ```bash
-git push origin atualiza-projeto
+git push origin main
 ```
 
 Em seguida:
@@ -41,7 +41,7 @@ Se a mudança foi só em variável de ambiente:
 |---|---|
 | Vercel | Projeto `tarrafa-bistro`, aba Deployments (commit, status, horário e logs de build) |
 | Render | Serviço do backend, aba Events (cada deploy, com o commit e o status) |
-| GitHub | Histórico de commits da branch `atualiza-projeto` |
+| GitHub | Histórico de commits da branch `main` |
 
 Para saber qual versão está no ar, compare o commit do deploy marcado como atual (Vercel e Render) com o histórico do GitHub.
 
@@ -62,7 +62,7 @@ Desfazer o commit com problema criando um commit novo e enviando:
 
 ```bash
 git revert <hash-do-commit-com-problema>
-git push origin atualiza-projeto
+git push origin main
 ```
 
 Isso dispara os deploys de novo, agora com o código corrigido. Esse caminho mantém o histórico e não exige nenhum recurso especial das plataformas.
