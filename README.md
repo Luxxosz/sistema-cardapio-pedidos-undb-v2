@@ -20,17 +20,19 @@
 
 ## 📖 Sobre o projeto
 
-O **Sistema de Cardápio e Pedidos** foi desenvolvido para centralizar o gerenciamento do cardápio e dos pedidos do restaurante **Tarrafa Bistrô do Mar**, especializado em pescado e de proposta alto padrão.
+O **Sistema de Cardápio e Pedidos** foi desenvolvido para centralizar o gerenciamento do cardápio e dos pedidos do restaurante **Tarrafa Bistrô do Mar**, especializado em pescado e com proposta de alto padrão.
 
-O sistema permite que clientes consultem o cardápio, realizem pedidos e acompanhem seu status, enquanto o administrador gerencia produtos, categorias e pedidos. Tudo é atualizado em tempo real: o que o administrador altera aparece para o cliente sem recarregar a página.
+O sistema permite que clientes consultem o cardápio, realizem pedidos e acompanhem seus status, enquanto o administrador gerencia produtos, categorias e pedidos. As informações são atualizadas em tempo real, permitindo que as alterações realizadas pelo administrador sejam refletidas para os clientes sem a necessidade de recarregar a página.
 
->  O projeto não é apenas um "site de cardápio". É um sistema de informação completo, com interface, backend, banco de dados, autenticação, regras de negócio e persistência dos dados.
+> O projeto não é apenas um site de cardápio. É um sistema de informação completo, com interface, backend, banco de dados, autenticação, regras de negócio e persistência de dados.
 
 ---
 
-##  Funcionalidades
+## ⚙️ Funcionalidades
 
-###  Cliente
+Todas as funcionalidades previstas para o sistema foram implementadas e concluídas.
+
+### Cliente
 
 - [x] Cadastro
 - [x] Login
@@ -41,84 +43,90 @@ O sistema permite que clientes consultem o cardápio, realizem pedidos e acompan
 - [x] Adição de observações
 - [x] Confirmação e cancelamento do pedido
 - [x] Acompanhamento do pedido
-- [ ] Acompanhamento em tempo real
+- [x] Acompanhamento em tempo real
 
-###  Administrador
+### Administrador
 
 - [x] Login (conta fixa)
 - [x] Gerenciamento de categorias
 - [x] Cadastro de produtos
 - [x] Edição de produtos
 - [x] Remoção de produtos
-- [x] Ativação/desativação de produtos
+- [x] Ativação e desativação de produtos
 - [x] Visualização dos pedidos
 - [x] Alteração do status dos pedidos
-- [ ] Encerrar dia com dashboard de controle
+- [x] Encerramento do dia com dashboard de controle
 
 ---
 
-##  Fluxo de status do pedido
+## 🔄 Fluxo de status do pedido
+
+O sistema possui um fluxo de status que representa as etapas de processamento dos pedidos, desde a solicitação do cliente até sua finalização.
 
 ```mermaid
 flowchart LR
-    A[PENDENTE] --> B[CONFIRMADO] --> C[EM PREPARAÇÃO] --> D[PRONTO] --> E[FINALIZADO]
+    A[PENDENTE] --> B[CONFIRMADO]
+    B --> C[EM PREPARAÇÃO]
+    C --> D[PRONTO]
+    D --> E[FINALIZADO]
     A --> X[CANCELADO]
     B --> X
 ```
 
 ---
 
-##  Regras de negócio
+## 📋 Regras de negócio
 
 | Código | Regra |
 | ------ | ----- |
-| RN01 | Produto desativado não entra em novos pedidos, mas continua nos pedidos antigos |
-| RN02 | O item guarda o preço do momento da compra |
-| RN03 | Pedido confirmado não pode mais ser editado |
-| RN04 | Só são aceitas as transições de status válidas |
-| RN05 | O cadastro público sempre cria um cliente |
-| RN06 | O cliente só enxerga os próprios pedidos |
-| RN07 | Produto que já aparece em pedidos só pode ser desativado, não excluído |
+| RN01 | Produto desativado não entra em novos pedidos, mas continua nos pedidos antigos. |
+| RN02 | O item guarda o preço do momento da compra. |
+| RN03 | Pedido confirmado não pode mais ser editado. |
+| RN04 | Só são aceitas as transições de status válidas. |
+| RN05 | O cadastro público sempre cria um cliente. |
+| RN06 | O cliente só enxerga os próprios pedidos. |
+| RN07 | Produto que já aparece em pedidos só pode ser desativado, não excluído. |
 
 ---
 
-##  Tecnologias
+## 🛠️ Tecnologias
 
 | Tecnologia | Utilização |
 | ---------- | ---------- |
-|  Java 21 | Backend |
-|  Spring Boot | Framework backend |
-|  Spring Security + JWT | Autenticação e controle de acesso |
-|  WebSocket (STOMP) | Atualização em tempo real |
-|  React | Frontend |
-|  TypeScript | Desenvolvimento frontend |
-|  PostgreSQL | Banco de dados |
-|  Maven | Gerenciamento do backend |
-|  JUnit + Mockito | Testes unitários |
-|  Git | Controle de versão |
-|  GitHub | Hospedagem do projeto |
+| Java 21 | Desenvolvimento do backend |
+| Spring Boot | Framework para desenvolvimento do backend |
+| Spring Security + JWT | Autenticação e controle de acesso |
+| WebSocket (STOMP) | Comunicação e atualização em tempo real |
+| React | Desenvolvimento da interface frontend |
+| TypeScript | Tipagem e desenvolvimento frontend |
+| PostgreSQL | Banco de dados relacional |
+| Maven | Gerenciamento de dependências e build do backend |
+| JUnit + Mockito | Testes unitários |
+| Git | Controle de versão |
+| GitHub | Hospedagem e colaboração no código |
 
 ---
 
-##  Arquitetura
+## 🏗️ Arquitetura
 
-O projeto utiliza uma arquitetura em camadas. Cada camada tem uma responsabilidade e só conversa com a vizinha:
+O projeto utiliza uma arquitetura em camadas, na qual cada camada possui uma responsabilidade específica. Essa organização facilita a manutenção, a evolução e a separação das responsabilidades do sistema.
 
 ```text
 Frontend
    │
    ▼
-Controller    → recebe as requisições e valida o formato
+Controller    → Recebe as requisições e direciona as operações
    │
    ▼
-Service       → regras de negócio
+Service       → Executa as regras de negócio
    │
    ▼
-Repository    → acesso aos dados
+Repository    → Realiza o acesso e a comunicação com os dados
    │
    ▼
-PostgreSQL
+PostgreSQL    → Armazena as informações do sistema
 ```
+
 ---
 
 ## 📂 Estrutura do repositório
@@ -157,16 +165,16 @@ sistema-cardapio-pedidos/
 │   ├── api.md
 │   └── diagramas/
 │
-├── docker-compose.yml
 ├── .env.example
 ├── .gitignore
 └── README.md
 ```
+
 ---
 
-##  Identidade visual
+## 🎨 Identidade visual
 
-Baseada no material do restaurante:
+A identidade visual do sistema foi baseada no material de referência do restaurante, utilizando uma paleta de cores que transmite sofisticação e remete ao ambiente marítimo.
 
 | Cor | Código |
 | --- | ------ |
@@ -182,12 +190,14 @@ Baseada no material do restaurante:
 
 | Nome | GitHub |
 | ---- | ------ |
-| _Luiz Eduardo_ | [@Luxxosz](https://github.com/Luxxosz) |
-| _Nícolas Ferreira_ | [@Nicolas-Dev256](https://github.com/Nicolas-Dev256) |
+| **Luiz Eduardo** | [@Luxxosz](https://github.com/Luxxosz) |
+| **Nícolas Ferreira** | [@Nicolas-Dev256](https://github.com/Nicolas-Dev256) |
+| **Agnelo Christian** | [@AnriXD](https://github.com/AnriXD) |
+| **Caua Evangelista** | [@CauaEvangelista](https://github.com/CauaEvangelista) |
+| **Nicolas Caparroz** | [@nicolassousacaparroz-oss](https://github.com/nicolassousacaparroz-oss) |
 
 ---
 
 <p align="center">
   <i>Tarrafa Bistrô do Mar. Da rede ao prato, na mesma maré.</i> 🌊
 </p>
-
